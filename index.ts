@@ -22,7 +22,8 @@ async function main() {
 	for (const page of dbResponse.results) {
 		const pageId = page.id;
 		const title = (page as any).properties.Title.title[0].text.content;
-		console.log(title);
+		const slug = (page as any).properties.Slug.rich_text[0].text.content;
+		console.log(slug, "-", title);
 	}
 }
 
