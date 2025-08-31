@@ -12,13 +12,18 @@ async function main() {
 		throw new Error("NOTION_DB_ID is not set");
 	}
 
-	const response = await notion.databases.query({ database_id: databaseId });
+	const dbResponse = await notion.databases.query({
+		database_id: databaseId,
+	});
 
-	console.log(response);
+	// console.log(dbResponse);
+	// console.log(dbResponse.results);
 
-	console.log("\n-+-+-+-+-+-+-+-+-+-\n");
-
-	console.log(response.results);
+	for (const page of dbResponse.results) {
+		const pageId = page.id;
+		const title = (page as any).properties.Title.title[0].text.content;
+		console.log(title);
+	}
 }
 
 main().catch((error) => console.error(error));
